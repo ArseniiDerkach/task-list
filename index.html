@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>List</title>
+	<script src="//code.angularjs.org/1.6.4/angular.min.js"></script>
+</head>
+<body>
+	<div class="main-page">
+		<div>Lorem ipsum dolor sit amet.</div>
+		<button class="btn-default" ng-click="addOrder()">Add New Order</button>
+		<button class="btn-default" ng-click="listOrders()">List Existing Orders</button>
+	</div>
+	<div class="add-order">
+		<div class="header">Добавить заказ</div>
+		<div ng-controller="AddOrderController">
+			<input type="date" name="addOrderDate" ng-required/>
+			<select name="addOrderManager" >
+				<option value="1">manager 1</option>
+				<option value="2">manager 2</option>
+				<option value="3">manager 3</option>
+				<option value="4">manager 4</option>
+			</select>
+			<select name="addOrderType">
+				<option value="retail">розница</option>
+				<option value="wholesale">опт</option>
+			</select>
+			<input type="text" placeholder="Заказчик">
+			<input type="text" placeholde="Поставщик">
+			<input type="date" name="addOrderTill">
+		</div>
+	</div>
+</body>
+</html>
