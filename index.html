@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app lang="en">
+<html ng-app="Orders" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>List</title>
-	<script src="//code.angularjs.org/1.6.4/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
 </head>
 <body>
 	<div class="main-page">
@@ -15,20 +15,15 @@
 		<div class="header">Добавить заказ</div>
 		<div ng-controller="AddOrderController">
 			<input type="date" name="addOrderDate" ng-required/>
-			<select name="addOrderManager" >
-				<option value="1">manager 1</option>
-				<option value="2">manager 2</option>
-				<option value="3">manager 3</option>
-				<option value="4">manager 4</option>
+			<select name="addOrderManager" ng-options="x for x in managers">
 			</select>
-			<select name="addOrderType">
-				<option value="retail">розница</option>
-				<option value="wholesale">опт</option>
+			<select name="addOrderType" ng-options="x for x in types">
 			</select>
 			<input type="text" placeholder="Заказчик">
-			<input type="text" placeholde="Поставщик">
+			<input type="text" placeholder="Поставщик">
 			<input type="date" name="addOrderTill">
 		</div>
 	</div>
+	<script src="app.js"></script>
 </body>
 </html>
