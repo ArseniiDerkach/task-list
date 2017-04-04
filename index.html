@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html ng-app lang="en">
+<html ng-app="Orders" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>List</title>
-	<script src="//code.angularjs.org/1.6.4/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
 </head>
 <body>
 	<div class="main-page">
 		<div>Lorem ipsum dolor sit amet.</div>
-		<button class="btn-default" ng-click="addOrder()">Add New Order</button>
-		<button class="btn-default" ng-click="listOrders()">List Existing Orders</button>
+		<button class="btn-default">Add New Order</button>
+		<button class="btn-default">List Existing Orders</button>
 	</div>
-	<div class="add-order">
+	<div ng-model="AddOrderModel" ng-controller="AddOrderController" class="add-order">
 		<div class="header">Добавить заказ</div>
-		<div ng-controller="AddOrderController">
+		<div>
 			<input type="date" name="addOrderDate" ng-required/>
-			<select name="addOrderManager" >
-				<option value="1">manager 1</option>
-				<option value="2">manager 2</option>
-				<option value="3">manager 3</option>
-				<option value="4">manager 4</option>
+			<select name="addOrderManager" ng-model="managers">
+				<option value="{{manager}}" ng-repeat="manager in data.managers track by $index">{{manager}}</option>
 			</select>
-			<select name="addOrderType">
-				<option value="retail">розница</option>
-				<option value="wholesale">опт</option>
+			<select name="addOrderType" ng-model="types">
+				<option value="{{type}}" ng-repeat="type in data.types">{{type}}</option>
 			</select>
-			<input type="text" placeholder="Заказчик">
-			<input type="text" placeholde="Поставщик">
+			<input type="text" name="addOrderBuyer" placeholder="Заказчик">
+			<input type="text" name="addOrderDeliver" placeholde="Поставщик">
 			<input type="date" name="addOrderTill">
+			<button ng-click="addOrder()">Добавить заказ</button>
 		</div>
 	</div>
+<script src="app.js"></script>
 </body>
 </html>
