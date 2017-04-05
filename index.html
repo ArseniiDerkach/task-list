@@ -5,32 +5,32 @@
 	<title>List</title>
 	<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
 </head>
-<body>
+<body ng-controller="orderController">
 	<div class="main-page">
 		<div>Lorem ipsum dolor sit amet.</div>
 		<button class="btn-default">Add New Order</button>
 		<button class="btn-default">List Existing Orders</button>
 	</div>
-	<div ng-model="orderModel" ng-controller="orderController" class="add-order">
+	<div ng-model="orderModel" class="add-order">
 		<div class="header">Добавить заказ</div>
 		<div>
-			<input type="date" name="addOrderDate" ng-required/>
-			<select name="addOrderManager" ng-model="managers">
+			<input type="date" name="addOrderDate" ng-model="addOrderDate">
+			<select name="addOrderManager" ng-model="addOrderManager">
 				<option value="{{manager}}" ng-repeat="manager in data.managers track by $index">{{manager}}</option>
 			</select>
-			<select name="addOrderType" ng-model="types">
+			<select name="addOrderType" ng-model="addOrderType">
 				<option value="{{type}}" ng-repeat="type in data.types">{{type}}</option>
 			</select>
-			<input type="text" name="addOrderBuyer" placeholder="Заказчик">
-			<input type="text" name="addOrderDeliver" placeholder="Поставщик">
-			<input type="date" name="addOrderTill">
+			<input type="text" name="addOrderBuyer" ng-model="addOrderBuyer" placeholder="Заказчик">
+			<input type="text" name="addOrderDeliver" ng-model="addOrderDeliver" placeholder="Поставщик">
+			<input type="date" name="addOrderTill" ng-model="addOrderTill">
 			<button ng-click="addOrder()">Добавить заказ</button>
 		</div>
 	</div>
-	<div ng-model="orderModel" ng-controller="orderController" class="show-orders">
+	<div ng-model="orderModel" class="show-orders">
 		<div class="header">Показать заказы</div>
 		<div>
-			<ul ng-repeat="order in data.orders">
+			<ul ng-repeat="order in orders">
             <li>Дата: {{order.date}}; менеджер, принявший заказ: {{order.manager}}; </li>
         </ul>
 		</div>
@@ -38,3 +38,28 @@
 	<script src="app.js"></script>
 </body>
 </html>
+
+<!-- <!doctype html>
+<html ng-app="todo">
+<head>
+<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="TodoCtrl">
+    <h2>Total todos: {{getTotalTodos()}}</h2>
+    <ul class="unstyled">
+        <li ng-repeat="todo in todos">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </li>
+    </ul>
+    <form class="form-horizontal">
+        <input type="text" ng-model="formTodoText" ng-model-instant>
+        <button class="btn" ng-click="addTodo()"><i class="icon-plus"></i>Add</button>
+    </form>
+
+    <button class="btn-large" ng-click="clearCompleted()"><i class="icon-trash"></i>Clear Completed</button>
+</div>
+	<script src="app.js"></script>
+</body>
+</html> -->
