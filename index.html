@@ -8,20 +8,31 @@
 <body>
 	<div class="main-page">
 		<div>Lorem ipsum dolor sit amet.</div>
-		<button class="btn-default" ng-click="addOrder()">Add New Order</button>
-		<button class="btn-default" ng-click="listOrders()">List Existing Orders</button>
+		<button class="btn-default">Add New Order</button>
+		<button class="btn-default">List Existing Orders</button>
 	</div>
-	<div class="add-order">
+	<div ng-model="orderModel" ng-controller="orderController" class="add-order">
 		<div class="header">Добавить заказ</div>
-		<div ng-controller="AddOrderController">
+		<div>
 			<input type="date" name="addOrderDate" ng-required/>
-			<select name="addOrderManager" ng-options="x for x in managers">
+			<select name="addOrderManager" ng-model="managers">
+				<option value="{{manager}}" ng-repeat="manager in data.managers track by $index">{{manager}}</option>
 			</select>
-			<select name="addOrderType" ng-options="x for x in types">
+			<select name="addOrderType" ng-model="types">
+				<option value="{{type}}" ng-repeat="type in data.types">{{type}}</option>
 			</select>
-			<input type="text" placeholder="Заказчик">
-			<input type="text" placeholder="Поставщик">
+			<input type="text" name="addOrderBuyer" placeholder="Заказчик">
+			<input type="text" name="addOrderDeliver" placeholder="Поставщик">
 			<input type="date" name="addOrderTill">
+			<button ng-click="addOrder()">Добавить заказ</button>
+		</div>
+	</div>
+	<div ng-model="orderModel" ng-controller="orderController" class="show-orders">
+		<div class="header">Показать заказы</div>
+		<div>
+			<ul ng-repeat="order in data.orders">
+            <li>Дата: {{order.date}}; менеджер, принявший заказ: {{order.manager}}; </li>
+        </ul>
 		</div>
 	</div>
 	<script src="app.js"></script>
