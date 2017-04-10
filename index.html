@@ -4,15 +4,16 @@
 	<meta charset="UTF-8">
 	<title>List</title>
 	<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body ng-controller="orderController">
 	<div class="main-page">
-		<div>Lorem ipsum dolor sit amet.</div>
-		<button class="btn-default">Add New Order</button>
-		<button class="btn-default">List Existing Orders</button>
+		<h1>Lorem ipsum dolor sit amet.</h1>
+		<button ng-click="addPage()" class="btn-default">Добавить новый заказ</button>
+		<button ng-click="listPage()" class="btn-default">Показать существующие заказы</button>
 	</div>
-	<div ng-model="orderModel" class="add-order">
-		<div class="header">Добавить заказ</div>
+	<div ng-model="addOrder" ng-show="currentPage == 'add orders page'" class="add-order">
+		<h2>Добавить заказ</h2>
 		<div>
 			<input type="date" name="addOrderDate" ng-model="addOrderDate">
 			<select name="addOrderManager" ng-model="addOrderManager">
@@ -24,42 +25,51 @@
 			<input type="text" name="addOrderBuyer" ng-model="addOrderBuyer" placeholder="Заказчик">
 			<input type="text" name="addOrderDeliver" ng-model="addOrderDeliver" placeholder="Поставщик">
 			<input type="date" name="addOrderTill" ng-model="addOrderTill">
-			<button ng-click="addOrder()">Добавить заказ</button>
+			<button class="add-order-btn" ng-click="addOrder()">Добавить заказ</button>
 		</div>
 	</div>
-	<div ng-model="orderModel" class="show-orders">
-		<div class="header">Показать заказы</div>
+	<div ng-show="currentPage == 'list orders page'" class="show-orders">
+		<h2>Показать заказы</h2>
 		<div>
-			<ul ng-repeat="order in orders">
-            <li>Дата: {{order.date}}; менеджер, принявший заказ: {{order.manager}}; </li>
-        </ul>
+			<table>
+				<tr ng-hide="editorEnabled">
+					<th>Дата заказа</th>
+					<th>Менеджер</th>
+					<th>Тип заказа</th>
+					<th>Заказчик</th>
+					<th>Поставщик</th>
+					<th>Дата выполнения</th>
+					<th>Редактировать</th>
+				</tr>
+				<tr ng-hide="editorEnabled" ng-repeat="order in orders track by $index">
+					<td>{{order.date | date : "dd.MM.yyyy"}}</td>
+					<td>{{order.manager}}</td>
+					<td>{{order.type}}</td>
+					<td>{{order.buyer}}</td>
+					<td>{{order.deliver}}</td>
+					<td>{{order.till | date: "dd.MM.yyyy"}}</td>
+					<td><span ng-show="isEdited(order.till)"><a class="btn edit-btn" ng-click="edit(order)"><img src="pencil.png" alt=""></a></span></td>
+				</tr>
+			</table>
+			<div ng-show="editorEnabled">
+				<h3>Редактировать заказ</h3>
+					<input type="date" ng-model="editOrderDate">
+					<select name="addOrderManager" ng-model="editOrderManager">
+						<option  ng-repeat="manager in data.managers track by $index">{{manager}}</option>
+					</select>
+					<select name="addOrderType" ng-model="editOrderType">
+						<option  ng-repeat="type in data.types track by $index">{{type}}</option>
+					</select>
+					<input ng-model="editOrderBuyer" type="text">
+					<input ng-model="editOrderDeliver" type="text">
+					<input type="date" ng-model="editOrderTill" >
+					<div>
+						<a class="btn btn-save" ng-click="save(index)">Сохранить</a></span>
+						<a class="btn btn-cancel" ng-click="cancel()">Отмена</a></span>
+					</div>
+				</div>
 		</div>
 	</div>
 	<script src="app.js"></script>
 </body>
 </html>
-
-<!-- <!doctype html>
-<html ng-app="todo">
-<head>
-<script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
-</head>
-<body>
-<div ng-controller="TodoCtrl">
-    <h2>Total todos: {{getTotalTodos()}}</h2>
-    <ul class="unstyled">
-        <li ng-repeat="todo in todos">
-            <input type="checkbox" ng-model="todo.done">
-            <span class="done-{{todo.done}}">{{todo.text}}</span>
-        </li>
-    </ul>
-    <form class="form-horizontal">
-        <input type="text" ng-model="formTodoText" ng-model-instant>
-        <button class="btn" ng-click="addTodo()"><i class="icon-plus"></i>Add</button>
-    </form>
-
-    <button class="btn-large" ng-click="clearCompleted()"><i class="icon-trash"></i>Clear Completed</button>
-</div>
-	<script src="app.js"></script>
-</body>
-</html> -->
